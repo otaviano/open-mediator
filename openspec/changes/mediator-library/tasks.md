@@ -13,10 +13,10 @@
 
 ## 2. Request Marker Interfaces
 
-- [ ] 2.1 Define `ICommand` marker interface in `OpenMediator/Abstractions/`
-- [ ] 2.2 Define `ICommand<TResult>` marker interface in `OpenMediator/Abstractions/`
-- [ ] 2.3 Define `IQuery<TResult>` marker interface in `OpenMediator/Abstractions/`
-- [ ] 2.4 Define `IEvent` marker interface in `OpenMediator/Abstractions/`
+- [x] 2.1 Define `ICommand` marker interface in `OpenMediator/Abstractions/`
+- [x] 2.2 Define `ICommand<TResult>` marker interface in `OpenMediator/Abstractions/`
+- [x] 2.3 Define `IQuery<TResult>` marker interface in `OpenMediator/Abstractions/`
+- [x] 2.4 Define `IEvent` marker interface in `OpenMediator/Abstractions/`
 
 ## 3. Handler Contracts
 
