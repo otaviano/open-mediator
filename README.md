@@ -1,6 +1,5 @@
 # OpenMediator
 
-![Build](https://github.com/your-org/open-mediator/actions/workflows/ci.yml/badge.svg)
 ![Mutation Score](https://img.shields.io/badge/mutation%20score-88%25-brightgreen)
 
 A minimal, DI-first .NET 10 mediator library. No magic, no global state — just clean request/handler contracts wired through the standard `IServiceCollection`.
