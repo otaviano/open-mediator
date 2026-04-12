@@ -39,13 +39,13 @@
 
 ## 6. Mediator Implementation
 
-- [ ] 6.1 Create `Mediator` class implementing `IMediator` with `IServiceProvider` primary constructor
-- [ ] 6.2 Implement `SendAsync<TCommand>` — resolve `ICommandHandler<TCommand>`, throw if missing, invoke `HandleAsync`
-- [ ] 6.3 Implement `SendAsync<TCommand, TResult>` — resolve `ICommandHandler<TCommand, TResult>`, build behavior pipeline, invoke
-- [ ] 6.4 Implement `QueryAsync<TQuery, TResult>` — resolve `IQueryHandler<TQuery, TResult>`, build behavior pipeline, invoke
-- [ ] 6.5 Implement `PublishAsync<TEvent>` — resolve `IEnumerable<IEventHandler<TEvent>>`, invoke all, aggregate exceptions
-- [ ] 6.6 Extract pipeline composition logic into a private `BuildPipeline<TRequest, TResponse>` helper method
-- [ ] 6.7 Implement duplicate handler detection — throw `InvalidOperationException` when more than one command/query handler is registered
+- [x] 6.1 Create `Mediator` class implementing `IMediator` with `IServiceProvider` primary constructor
+- [x] 6.2 Implement `SendAsync<TCommand>` — resolve `ICommandHandler<TCommand>`, throw if missing, invoke `HandleAsync`
+- [x] 6.3 Implement `SendAsync<TCommand, TResult>` — resolve `ICommandHandler<TCommand, TResult>`, build behavior pipeline, invoke
+- [x] 6.4 Implement `QueryAsync<TQuery, TResult>` — resolve `IQueryHandler<TQuery, TResult>`, build behavior pipeline, invoke
+- [x] 6.5 Implement `PublishAsync<TEvent>` — resolve `IEnumerable<IEventHandler<TEvent>>`, invoke all, aggregate exceptions
+- [x] 6.6 Extract pipeline composition logic into a private `BuildPipeline<TRequest, TResponse>` helper method
+- [x] 6.7 Implement duplicate handler detection — throw `InvalidOperationException` when more than one command/query handler is registered
 
 ## 7. DI Registration
 
