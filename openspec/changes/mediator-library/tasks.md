@@ -32,10 +32,10 @@
 
 ## 5. IMediator Interface
 
-- [ ] 5.1 Define `IMediator` interface with `SendAsync<TCommand>(TCommand, CancellationToken)` for fire-and-forget commands
-- [ ] 5.2 Add `SendAsync<TCommand, TResult>(TCommand, CancellationToken)` overload to `IMediator` for commands with result
-- [ ] 5.3 Add `QueryAsync<TQuery, TResult>(TQuery, CancellationToken)` to `IMediator`
-- [ ] 5.4 Add `PublishAsync<TEvent>(TEvent, CancellationToken)` to `IMediator`
+- [x] 5.1 Define `IMediator` interface with `SendAsync<TCommand>(TCommand, CancellationToken)` for fire-and-forget commands
+- [x] 5.2 Add `SendAsync<TCommand, TResult>(TCommand, CancellationToken)` overload to `IMediator` for commands with result
+- [x] 5.3 Add `QueryAsync<TQuery, TResult>(TQuery, CancellationToken)` to `IMediator`
+- [x] 5.4 Add `PublishAsync<TEvent>(TEvent, CancellationToken)` to `IMediator`
 
 ## 6. Mediator Implementation
 
