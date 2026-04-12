@@ -49,11 +49,11 @@
 
 ## 7. DI Registration
 
-- [ ] 7.1 Create `OpenMediatorServiceCollectionExtensions` static class in `OpenMediator/Extensions/`
-- [ ] 7.2 Implement `AddOpenMediator(params Assembly[])` — registers `IMediator` as scoped and triggers assembly scanning
-- [ ] 7.3 Implement assembly scanner — discover and register `ICommandHandler<>`, `ICommandHandler<,>`, `IQueryHandler<,>`, `IEventHandler<>` implementations as scoped
-- [ ] 7.4 Implement `AddPipelineBehavior<TBehavior>()` extension method (scoped lifetime)
-- [ ] 7.5 Implement non-generic `AddPipelineBehavior(Type behaviorType)` overload
+- [x] 7.1 Create `OpenMediatorServiceCollectionExtensions` static class in `OpenMediator/Extensions/`
+- [x] 7.2 Implement `AddOpenMediator(params Assembly[])` — registers `IMediator` as scoped and triggers assembly scanning
+- [x] 7.3 Implement assembly scanner — discover and register `ICommandHandler<>`, `ICommandHandler<,>`, `IQueryHandler<,>`, `IEventHandler<>` implementations as scoped
+- [x] 7.4 Implement `AddPipelineBehavior<TBehavior>()` extension method (scoped lifetime)
+- [x] 7.5 Implement non-generic `AddPipelineBehavior(Type behaviorType)` overload
 
 ## 8. Tests — Core Dispatch
 
