@@ -202,4 +202,4 @@ var app = builder.Build();
 
 ## License
 
-MIT
+GPL

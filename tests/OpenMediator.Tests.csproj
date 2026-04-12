@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\OpenMediator\OpenMediator.csproj" />
+    <ProjectReference Include="..\src\OpenMediator.csproj" />
   </ItemGroup>
 
 </Project>

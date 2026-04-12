@@ -1,8 +1,8 @@
 {
   "stryker-config": {
-    "project": "src/OpenMediator/OpenMediator.csproj",
+    "project": "src/OpenMediator.csproj",
     "test-projects": [
-      "tests/OpenMediator.Tests/OpenMediator.Tests.csproj"
+      "tests/OpenMediator.Tests.csproj"
     ],
     "reporters": [
       "json",

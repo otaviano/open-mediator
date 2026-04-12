@@ -1,8 +1,8 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/OpenMediator/OpenMediator.csproj" />
+    <Project Path="src/OpenMediator.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/OpenMediator.Tests/OpenMediator.Tests.csproj" />
+    <Project Path="tests/OpenMediator.Tests.csproj" />
   </Folder>
 </Solution>
