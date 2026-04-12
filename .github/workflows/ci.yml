@@ -97,7 +97,10 @@ jobs:
 
             const reportPath = path.join(reportDir, jsonFiles[0]);
             const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
-            const score = report.mutationScore?.toFixed(2) ?? 'N/A';
+            const mutants = Object.values(report.files ?? {}).flatMap(f => f.mutants ?? []);
+            const tested = mutants.filter(m => ['Killed', 'Survived', 'Timeout'].includes(m.status));
+            const killed = tested.filter(m => ['Killed', 'Timeout'].includes(m.status)).length;
+            const score = tested.length > 0 ? ((killed / tested.length) * 100).toFixed(2) : 'N/A';
             const thresholds = { break: 80, low: 85, high: 90 };
 
             let badge = '🔴';
@@ -128,7 +131,16 @@ jobs:
       - name: Fail if mutation score below threshold
         run: |
           REPORT=$(find StrykerOutput -name 'mutation-report.json' | head -1)
-          SCORE=$(python3 -c "import json; d=json.load(open('$REPORT')); print(d.get('mutationScore', 0))")
+          SCORE=$(python3 - <<'PYEOF'
+          import json, sys
+          with open("$REPORT") as f:
+              data = json.load(f)
+          mutants = [m for fi in data.get("files", {}).values() for m in fi.get("mutants", [])]
+          tested = [m for m in mutants if m["status"] in ("Killed", "Survived", "Timeout")]
+          score = (len([m for m in tested if m["status"] in ("Killed", "Timeout")]) / len(tested) * 100) if tested else 0
+          print(f"{score:.2f}")
+          PYEOF
+          )
           echo "Mutation score: $SCORE%"
           python3 -c "
           score = float('$SCORE')
