@@ -57,29 +57,29 @@
 
 ## 8. Tests — Core Dispatch
 
-- [ ] 8.1 Test `SendAsync<TCommand>` invokes registered handler
-- [ ] 8.2 Test `SendAsync<TCommand>` throws `InvalidOperationException` when no handler registered
-- [ ] 8.3 Test `SendAsync<TCommand, TResult>` invokes handler and returns result
-- [ ] 8.4 Test `QueryAsync<TQuery, TResult>` invokes handler and returns result
-- [ ] 8.5 Test `QueryAsync` throws when no handler registered
-- [ ] 8.6 Test `PublishAsync` invokes all registered event handlers
-- [ ] 8.7 Test `PublishAsync` is no-op when no handlers registered
-- [ ] 8.8 Test `PublishAsync` aggregates exceptions from multiple failing handlers
+- [x] 8.1 Test `SendAsync<TCommand>` invokes registered handler
+- [x] 8.2 Test `SendAsync<TCommand>` throws `InvalidOperationException` when no handler registered
+- [x] 8.3 Test `SendAsync<TCommand, TResult>` invokes handler and returns result
+- [x] 8.4 Test `QueryAsync<TQuery, TResult>` invokes handler and returns result
+- [x] 8.5 Test `QueryAsync` throws when no handler registered
+- [x] 8.6 Test `PublishAsync` invokes all registered event handlers
+- [x] 8.7 Test `PublishAsync` is no-op when no handlers registered
+- [x] 8.8 Test `PublishAsync` aggregates exceptions from multiple failing handlers
 
 ## 9. Tests — Pipeline Behaviors
 
-- [ ] 9.1 Test single behavior wraps handler dispatch (entry before, exit after)
-- [ ] 9.2 Test multiple behaviors execute in registration order (outermost first)
-- [ ] 9.3 Test behavior can short-circuit and prevent handler invocation
-- [ ] 9.4 Test behavior can inspect and replace handler result
+- [x] 9.1 Test single behavior wraps handler dispatch (entry before, exit after)
+- [x] 9.2 Test multiple behaviors execute in registration order (outermost first)
+- [x] 9.3 Test behavior can short-circuit and prevent handler invocation
+- [x] 9.4 Test behavior can inspect and replace handler result
 
 ## 10. Tests — DI Registration
 
-- [ ] 10.1 Test `AddOpenMediator` registers `IMediator` as resolvable from container
-- [ ] 10.2 Test assembly scanning registers `ICommandHandler<TCommand>` for all discovered implementations
-- [ ] 10.3 Test assembly scanning registers all four handler interface families
-- [ ] 10.4 Test `AddOpenMediator` with multiple assemblies registers handlers from all of them
-- [ ] 10.5 Test `AddPipelineBehavior` registers behavior and it is applied during dispatch
+- [x] 10.1 Test `AddOpenMediator` registers `IMediator` as resolvable from container
+- [x] 10.2 Test assembly scanning registers `ICommandHandler<TCommand>` for all discovered implementations
+- [x] 10.3 Test assembly scanning registers all four handler interface families
+- [x] 10.4 Test `AddOpenMediator` with multiple assemblies registers handlers from all of them
+- [x] 10.5 Test `AddPipelineBehavior` registers behavior and it is applied during dispatch
 
 ## 11. Mutation Testing — Stryker
 
