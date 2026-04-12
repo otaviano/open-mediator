@@ -1,0 +1,19 @@
+{
+  "stryker-config": {
+    "project": "src/OpenMediator/OpenMediator.csproj",
+    "test-projects": [
+      "tests/OpenMediator.Tests/OpenMediator.Tests.csproj"
+    ],
+    "reporters": [
+      "json",
+      "html",
+      "progress"
+    ],
+    "thresholds": {
+      "high": 90,
+      "low": 85,
+      "break": 80
+    },
+    "mutation-level": "Standard"
+  }
+}

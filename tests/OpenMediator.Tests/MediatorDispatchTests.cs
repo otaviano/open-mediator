@@ -189,6 +189,48 @@ public class MediatorDispatchTests
         ex.Which.InnerExceptions.Should().HaveCount(2);
     }
 
+    // ── Single failing event handler ────────────────────────────────────────
+
+    [Fact]
+    public async Task PublishAsync_ThrowsAggregateExceptionWhenSingleHandlerThrows()
+    {
+        var mediator = BuildMediator(s =>
+            s.AddScoped<IEventHandler<OrderPlacedEvent>, ThrowingEventHandler>());
+
+        var act = () => mediator.PublishAsync(new OrderPlacedEvent(1));
+
+        var ex = await act.Should().ThrowAsync<AggregateException>();
+        ex.Which.InnerExceptions.Should().HaveCount(1);
+    }
+
+    // ── Error message content ────────────────────────────────────────────────
+
+    [Fact]
+    public async Task SendAsync_ErrorMessage_ContainsAddOpenMediatorHint()
+    {
+        var mediator = BuildMediator(_ => { });
+
+        var act = () => mediator.SendAsync(new PingCommand());
+
+        await act.Should().ThrowAsync<InvalidOperationException>()
+            .WithMessage("*AddOpenMediator*");
+    }
+
+    [Fact]
+    public async Task SendAsync_DuplicateHandlerErrorMessage_MentionsOnlyOne()
+    {
+        var mediator = BuildMediator(s =>
+        {
+            s.AddScoped<ICommandHandler<PingCommand>, PingHandler>();
+            s.AddScoped<ICommandHandler<PingCommand>, PingHandler>();
+        });
+
+        var act = () => mediator.SendAsync(new PingCommand());
+
+        await act.Should().ThrowAsync<InvalidOperationException>()
+            .WithMessage("*Only one handler*");
+    }
+
     // ── Duplicate handler detection ──────────────────────────────────────────
 
     [Fact]

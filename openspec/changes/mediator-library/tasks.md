@@ -83,11 +83,11 @@
 
 ## 11. Mutation Testing — Stryker
 
-- [ ] 11.1 Add `stryker-config.json` at repo root — configure reporters (`json`, `html`, `progress`), thresholds (`break: 80`, `low: 85`), and project files
-- [ ] 11.2 Run `dotnet stryker` after core dispatch implementation (section 6) and fix surviving mutants
-- [ ] 11.3 Run `dotnet stryker` after pipeline behaviors implementation and fix surviving mutants
-- [ ] 11.4 Run `dotnet stryker` after DI registration implementation and fix surviving mutants
-- [ ] 11.5 Confirm mutation score meets threshold before marking implementation complete
+- [x] 11.1 Add `stryker-config.json` at repo root — configure reporters (`json`, `html`, `progress`), thresholds (`break: 80`, `low: 85`), and project files
+- [x] 11.2 Run `dotnet stryker` after core dispatch implementation (section 6) and fix surviving mutants
+- [x] 11.3 Run `dotnet stryker` after pipeline behaviors implementation and fix surviving mutants
+- [x] 11.4 Run `dotnet stryker` after DI registration implementation and fix surviving mutants
+- [x] 11.5 Confirm mutation score meets threshold before marking implementation complete
 
 ## 12. README
 
