@@ -12,3 +12,14 @@ StrykerOutput/
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Logs / temp
+*.log
+*.tmp
