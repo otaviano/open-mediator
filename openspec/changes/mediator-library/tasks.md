@@ -91,13 +91,13 @@
 
 ## 12. README
 
-- [ ] 12.1 Create `README.md` at repo root with project overview, motivation, and comparison to MediatR/Brighter
-- [ ] 12.2 Document all request marker interfaces (`ICommand`, `ICommand<TResult>`, `IQuery<TResult>`, `IEvent`) with usage examples
-- [ ] 12.3 Document all handler interfaces with code snippets showing implementation patterns
-- [ ] 12.4 Document `IPipelineBehavior<TRequest, TResponse>` with a full validation behavior example
-- [ ] 12.5 Document `AddOpenMediator` and `AddPipelineBehavior` DI registration with a minimal `Program.cs` example
-- [ ] 12.6 Add section on dispatch methods (`SendAsync`, `QueryAsync`, `PublishAsync`) with before/after examples
-- [ ] 12.7 Add contributing guide, license, and badges (build status, mutation score)
+- [x] 12.1 Create `README.md` at repo root with project overview, motivation, and comparison to MediatR/Brighter
+- [x] 12.2 Document all request marker interfaces (`ICommand`, `ICommand<TResult>`, `IQuery<TResult>`, `IEvent`) with usage examples
+- [x] 12.3 Document all handler interfaces with code snippets showing implementation patterns
+- [x] 12.4 Document `IPipelineBehavior<TRequest, TResponse>` with a full validation behavior example
+- [x] 12.5 Document `AddOpenMediator` and `AddPipelineBehavior` DI registration with a minimal `Program.cs` example
+- [x] 12.6 Add section on dispatch methods (`SendAsync`, `QueryAsync`, `PublishAsync`) with before/after examples
+- [x] 12.7 Add contributing guide, license, and badges (build status, mutation score)
 
 ## 13. CI Pipeline
 
