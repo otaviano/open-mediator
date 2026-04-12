@@ -27,8 +27,8 @@
 
 ## 4. Pipeline Behavior Contract
 
-- [ ] 4.1 Define `RequestHandlerDelegate<TResponse>` delegate type (`Func<CancellationToken, Task<TResponse>>`)
-- [ ] 4.2 Define `IPipelineBehavior<TRequest, TResponse>` interface with `Task<TResponse> HandleAsync(TRequest, RequestHandlerDelegate<TResponse>, CancellationToken)`
+- [x] 4.1 Define `RequestHandlerDelegate<TResponse>` delegate type (`Func<CancellationToken, Task<TResponse>>`)
+- [x] 4.2 Define `IPipelineBehavior<TRequest, TResponse>` interface with `Task<TResponse> HandleAsync(TRequest, RequestHandlerDelegate<TResponse>, CancellationToken)`
 
 ## 5. IMediator Interface
 
