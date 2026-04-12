@@ -1,0 +1,14 @@
+# Build output
+bin/
+obj/
+
+# .NET tools
+.vs/
+
+# Test results
+TestResults/
+StrykerOutput/
+
+# OS
+.DS_Store
+Thumbs.db
