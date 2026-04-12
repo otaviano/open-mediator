@@ -20,10 +20,10 @@
 
 ## 3. Handler Contracts
 
-- [ ] 3.1 Define `ICommandHandler<TCommand>` interface with `Task HandleAsync(TCommand, CancellationToken)`
-- [ ] 3.2 Define `ICommandHandler<TCommand, TResult>` interface with `Task<TResult> HandleAsync(TCommand, CancellationToken)`
-- [ ] 3.3 Define `IQueryHandler<TQuery, TResult>` interface with `Task<TResult> HandleAsync(TQuery, CancellationToken)`
-- [ ] 3.4 Define `IEventHandler<TEvent>` interface with `Task HandleAsync(TEvent, CancellationToken)`
+- [x] 3.1 Define `ICommandHandler<TCommand>` interface with `Task HandleAsync(TCommand, CancellationToken)`
+- [x] 3.2 Define `ICommandHandler<TCommand, TResult>` interface with `Task<TResult> HandleAsync(TCommand, CancellationToken)`
+- [x] 3.3 Define `IQueryHandler<TQuery, TResult>` interface with `Task<TResult> HandleAsync(TQuery, CancellationToken)`
+- [x] 3.4 Define `IEventHandler<TEvent>` interface with `Task HandleAsync(TEvent, CancellationToken)`
 
 ## 4. Pipeline Behavior Contract
 
