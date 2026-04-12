@@ -101,11 +101,11 @@
 
 ## 13. CI Pipeline
 
-- [ ] 13.1 Create `.github/workflows/ci.yml` with triggers on `push` to `main` and `pull_request`
-- [ ] 13.2 Add build step: `dotnet build --configuration Release`
-- [ ] 13.3 Add test step: `dotnet test --logger trx --results-directory TestResults/`
-- [ ] 13.4 Add Dorny test reporter step using `dorny/test-reporter` action to publish TRX results as PR check
-- [ ] 13.5 Add Stryker mutation testing step: `dotnet stryker --reporter json --reporter html`
-- [ ] 13.6 Upload Stryker HTML report as GitHub Actions artifact
-- [ ] 13.7 Add Stryker PR comment step — post mutation score summary as a PR comment using the JSON report
-- [ ] 13.8 Fail the CI build if Stryker mutation score falls below configured threshold
+- [x] 13.1 Create `.github/workflows/ci.yml` with triggers on `push` to `main` and `pull_request`
+- [x] 13.2 Add build step: `dotnet build --configuration Release`
+- [x] 13.3 Add test step: `dotnet test --logger trx --results-directory TestResults/`
+- [x] 13.4 Add Dorny test reporter step using `dorny/test-reporter` action to publish TRX results as PR check
+- [x] 13.5 Add Stryker mutation testing step: `dotnet stryker --reporter json --reporter html`
+- [x] 13.6 Upload Stryker HTML report as GitHub Actions artifact
+- [x] 13.7 Add Stryker PR comment step — post mutation score summary as a PR comment using the JSON report
+- [x] 13.8 Fail the CI build if Stryker mutation score falls below configured threshold
