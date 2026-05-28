@@ -9,7 +9,8 @@
       "Bash(git rm:*)",
       "Bash(dotnet stryker:*)",
       "Bash(dotnet clean:*)",
-      "Bash(ls src/obj/Debug/net10.0/*.cs)"
+      "Bash(ls src/obj/Debug/net10.0/*.cs)",
+      "Bash(git remote:*)"
     ]
   }
 }

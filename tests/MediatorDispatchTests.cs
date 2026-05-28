@@ -1,9 +1,9 @@
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using OpenMediator.Abstractions;
-using OpenMediator.Extensions;
+using SimpleMediator.Abstractions;
+using SimpleMediator.Extensions;
 
-namespace OpenMediator.Tests;
+namespace SimpleMediator.Tests;
 
 public class MediatorDispatchTests
 {
@@ -67,7 +67,7 @@ public class MediatorDispatchTests
     private static IMediator BuildMediator(Action<IServiceCollection> configure)
     {
         var services = new ServiceCollection();
-        services.AddOpenMediator(); // registers IMediator; no assembly scanning
+        services.AddSimpleMediator(); // registers IMediator; no assembly scanning
         configure(services);
         return services.BuildServiceProvider().GetRequiredService<IMediator>();
     }
@@ -206,14 +206,14 @@ public class MediatorDispatchTests
     // ── Error message content ────────────────────────────────────────────────
 
     [Fact]
-    public async Task SendAsync_ErrorMessage_ContainsAddOpenMediatorHint()
+    public async Task SendAsync_ErrorMessage_ContainsAddSimpleMediatorHint()
     {
         var mediator = BuildMediator(_ => { });
 
         var act = () => mediator.SendAsync(new PingCommand());
 
         await act.Should().ThrowAsync<InvalidOperationException>()
-            .WithMessage("*AddOpenMediator*");
+            .WithMessage("*AddSimpleMediator*");
     }
 
     [Fact]

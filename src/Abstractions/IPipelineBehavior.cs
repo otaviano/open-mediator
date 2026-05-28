@@ -1,4 +1,4 @@
-namespace OpenMediator.Abstractions;
+namespace SimpleMediator.Abstractions;
 
 /// <summary>
 /// Delegate representing the next step in the pipeline — either the next behavior or the handler itself.
