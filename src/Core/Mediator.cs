@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using SimpleMediator.Abstractions;
+using OpenMediator.Abstractions;
 
-namespace SimpleMediator.Core;
+namespace OpenMediator.Core;
 
 internal sealed class Mediator(IServiceProvider serviceProvider) : IMediator
 {
@@ -69,7 +69,7 @@ internal sealed class Mediator(IServiceProvider serviceProvider) : IMediator
         {
             0 => throw new InvalidOperationException(
                 $"No handler registered for '{typeof(TRequest).FullName}'. " +
-                "Register it via AddSimpleMediator()."),
+                "Register it via AddOpenMediator()."),
             > 1 => throw new InvalidOperationException(
                 $"Multiple handlers registered for '{typeof(TRequest).FullName}'. " +
                 "Only one handler per command or query is allowed."),

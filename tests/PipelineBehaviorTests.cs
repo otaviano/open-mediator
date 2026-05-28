@@ -1,9 +1,9 @@
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleMediator.Abstractions;
-using SimpleMediator.Extensions;
+using OpenMediator.Abstractions;
+using OpenMediator.Extensions;
 
-namespace SimpleMediator.Tests;
+namespace OpenMediator.Tests;
 
 public class PipelineBehaviorTests
 {
@@ -59,7 +59,7 @@ public class PipelineBehaviorTests
     private static IMediator BuildMediator(Action<IServiceCollection> configure)
     {
         var services = new ServiceCollection();
-        services.AddSimpleMediator(); // registers IMediator; no assembly scanning
+        services.AddOpenMediator(); // registers IMediator; no assembly scanning
         configure(services);
         return services.BuildServiceProvider().GetRequiredService<IMediator>();
     }

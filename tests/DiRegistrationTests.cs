@@ -1,9 +1,9 @@
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleMediator.Abstractions;
-using SimpleMediator.Extensions;
+using OpenMediator.Abstractions;
+using OpenMediator.Extensions;
 
-namespace SimpleMediator.Tests;
+namespace OpenMediator.Tests;
 
 public class DiRegistrationTests
 {
@@ -51,10 +51,10 @@ public class DiRegistrationTests
     // ── Tests ────────────────────────────────────────────────────────────────
 
     [Fact]
-    public void AddSimpleMediator_RegistersIMediatorAsResolvable()
+    public void AddOpenMediator_RegistersIMediatorAsResolvable()
     {
         var provider = new ServiceCollection()
-            .AddSimpleMediator(typeof(DiRegistrationTests).Assembly)
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
             .BuildServiceProvider();
 
         var mediator = provider.GetService<IMediator>();
@@ -63,10 +63,10 @@ public class DiRegistrationTests
     }
 
     [Fact]
-    public void AddSimpleMediator_RegistersDiscoveredCommandHandlers()
+    public void AddOpenMediator_RegistersDiscoveredCommandHandlers()
     {
         var provider = new ServiceCollection()
-            .AddSimpleMediator(typeof(DiRegistrationTests).Assembly)
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
             .BuildServiceProvider();
 
         var handler = provider.GetService<ICommandHandler<CreateOrderCommand>>();
@@ -75,10 +75,10 @@ public class DiRegistrationTests
     }
 
     [Fact]
-    public void AddSimpleMediator_RegistersAllFourHandlerInterfaceFamilies()
+    public void AddOpenMediator_RegistersAllFourHandlerInterfaceFamilies()
     {
         var provider = new ServiceCollection()
-            .AddSimpleMediator(typeof(DiRegistrationTests).Assembly)
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
             .BuildServiceProvider();
 
         provider.GetService<ICommandHandler<CreateOrderCommand>>().Should().NotBeNull();
@@ -87,12 +87,12 @@ public class DiRegistrationTests
     }
 
     [Fact]
-    public void AddSimpleMediator_WithMultipleAssemblies_RegistersHandlersFromAll()
+    public void AddOpenMediator_WithMultipleAssemblies_RegistersHandlersFromAll()
     {
         // Both assemblies are the same here; in real usage they'd differ.
         var assembly = typeof(DiRegistrationTests).Assembly;
         var provider = new ServiceCollection()
-            .AddSimpleMediator(assembly, assembly) // duplicates are fine — scoped lifetimes
+            .AddOpenMediator(assembly, assembly) // duplicates are fine — scoped lifetimes
             .BuildServiceProvider();
 
         provider.GetService<ICommandHandler<CreateOrderCommand>>().Should().NotBeNull();
@@ -104,7 +104,7 @@ public class DiRegistrationTests
     {
         var log = new LoggingBehavior<GetOrderQuery, string>();
         var provider = new ServiceCollection()
-            .AddSimpleMediator(typeof(DiRegistrationTests).Assembly)
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
             .AddSingleton<IPipelineBehavior<GetOrderQuery, string>>(log)
             .BuildServiceProvider();
 
@@ -118,7 +118,7 @@ public class DiRegistrationTests
     public async Task AddPipelineBehavior_Generic_RegistersAndAppliesBehavior()
     {
         var services = new ServiceCollection()
-            .AddSimpleMediator(typeof(DiRegistrationTests).Assembly);
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly);
 
         // The generic overload needs a closed behavior type
         services.AddScoped<LoggingBehavior<GetOrderQuery, string>>();
@@ -138,7 +138,7 @@ public class DiRegistrationTests
     public async Task AddPipelineBehavior_TypeOverload_RegistersBehaviorAndAppliesItDuringDispatch()
     {
         var provider = new ServiceCollection()
-            .AddSimpleMediator(typeof(DiRegistrationTests).Assembly)
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
             .AddPipelineBehavior(typeof(LoggingBehavior<GetOrderQuery, string>))
             .BuildServiceProvider();
 
@@ -154,7 +154,7 @@ public class DiRegistrationTests
     public void AddPipelineBehavior_TypeOverload_WithNonBehaviorType_RegistersNothing()
     {
         var services = new ServiceCollection()
-            .AddSimpleMediator(typeof(DiRegistrationTests).Assembly)
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
             .AddPipelineBehavior(typeof(CreateOrderHandler));
 
         var provider = services.BuildServiceProvider();
@@ -166,7 +166,7 @@ public class DiRegistrationTests
     public async Task AddPipelineBehavior_GenericExtensionOverload_RegistersBehaviorAndAppliesItDuringDispatch()
     {
         var provider = new ServiceCollection()
-            .AddSimpleMediator(typeof(DiRegistrationTests).Assembly)
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
             .AddPipelineBehavior<LoggingBehavior<GetOrderQuery, string>>()
             .BuildServiceProvider();
 
@@ -179,21 +179,21 @@ public class DiRegistrationTests
     }
 
     [Fact]
-    public void AddSimpleMediator_WithNoAssemblies_StillRegistersIMediator()
+    public void AddOpenMediator_WithNoAssemblies_StillRegistersIMediator()
     {
         var provider = new ServiceCollection()
-            .AddSimpleMediator()
+            .AddOpenMediator()
             .BuildServiceProvider();
 
         provider.GetService<IMediator>().Should().NotBeNull();
     }
 
     [Fact]
-    public void AddSimpleMediator_ReturnsServiceCollectionForChaining()
+    public void AddOpenMediator_ReturnsServiceCollectionForChaining()
     {
         var services = new ServiceCollection();
 
-        var result = services.AddSimpleMediator(typeof(DiRegistrationTests).Assembly);
+        var result = services.AddOpenMediator(typeof(DiRegistrationTests).Assembly);
 
         result.Should().BeSameAs(services);
     }
@@ -202,7 +202,7 @@ public class DiRegistrationTests
     public void AddPipelineBehavior_TypeOverload_ReturnsServiceCollectionForChaining()
     {
         var services = new ServiceCollection()
-            .AddSimpleMediator(typeof(DiRegistrationTests).Assembly);
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly);
 
         var result = services.AddPipelineBehavior(typeof(LoggingBehavior<GetOrderQuery, string>));
 
@@ -216,7 +216,7 @@ public class DiRegistrationTests
         // IPipelineBehavior<GetOrderQuery, string>. This test ensures GetClosedPipelineBehaviorInterfaces
         // only returns IPipelineBehavior<,> — not IDisposable — by verifying the behavior works correctly.
         var provider = new ServiceCollection()
-            .AddSimpleMediator(typeof(DiRegistrationTests).Assembly)
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
             .AddPipelineBehavior(typeof(BehaviorWithNonGenericInterface))
             .BuildServiceProvider();
 

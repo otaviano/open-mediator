@@ -1,4 +1,4 @@
-namespace SimpleMediator.Abstractions;
+namespace OpenMediator.Abstractions;
 
 /// <summary>
 /// Marker interface for a fire-and-forget command that produces no result.

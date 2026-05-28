@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 
     <!-- NuGet package metadata -->
-    <PackageId>SimpleMediator</PackageId>
+    <PackageId>OpenMediator</PackageId>
     <Version>1.0.0</Version>
     <Authors>otaviano</Authors>
     <Description>A minimal, DI-first .NET 10 mediator library. No magic, no global state — just clean command/query/event contracts wired through IServiceCollection.</Description>
@@ -23,8 +23,8 @@
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <AssemblyName>SimpleMediator</AssemblyName>
-    <RootNamespace>SimpleMediator</RootNamespace>
+    <AssemblyName>OpenMediator</AssemblyName>
+    <RootNamespace>OpenMediator</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

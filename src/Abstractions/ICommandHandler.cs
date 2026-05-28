@@ -1,4 +1,4 @@
-namespace SimpleMediator.Abstractions;
+namespace OpenMediator.Abstractions;
 
 /// <summary>
 /// Handles a fire-and-forget command of type <typeparamref name="TCommand"/>.

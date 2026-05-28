@@ -1,11 +1,11 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleMediator.Abstractions;
-using SimpleMediator.Core;
+using OpenMediator.Abstractions;
+using OpenMediator.Core;
 
-namespace SimpleMediator.Extensions;
+namespace OpenMediator.Extensions;
 
-public static class SimpleMediatorServiceCollectionExtensions
+public static class OpenMediatorServiceCollectionExtensions
 {
     private static readonly Type[] HandlerInterfaces =
     [
@@ -18,7 +18,7 @@ public static class SimpleMediatorServiceCollectionExtensions
     /// <summary>
     /// Registers <see cref="IMediator"/> and scans <paramref name="assemblies"/> for handler implementations.
     /// </summary>
-    public static IServiceCollection AddSimpleMediator(
+    public static IServiceCollection AddOpenMediator(
         this IServiceCollection services,
         params Assembly[] assemblies)
     {

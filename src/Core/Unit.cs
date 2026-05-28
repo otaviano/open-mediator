@@ -1,4 +1,4 @@
-namespace SimpleMediator.Core;
+namespace OpenMediator.Core;
 
 /// <summary>
 /// Represents a void return value in a generic pipeline context.
