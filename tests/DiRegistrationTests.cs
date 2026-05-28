@@ -133,4 +133,119 @@ public class DiRegistrationTests
 
         behavior.Log.Should().Equal("before", "after");
     }
+
+    [Fact]
+    public async Task AddPipelineBehavior_TypeOverload_RegistersBehaviorAndAppliesItDuringDispatch()
+    {
+        var provider = new ServiceCollection()
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
+            .AddPipelineBehavior(typeof(LoggingBehavior<GetOrderQuery, string>))
+            .BuildServiceProvider();
+
+        var mediator = provider.GetRequiredService<IMediator>();
+        var behavior = provider.GetRequiredService<IPipelineBehavior<GetOrderQuery, string>>();
+
+        await mediator.QueryAsync<GetOrderQuery, string>(new GetOrderQuery(3));
+
+        ((LoggingBehavior<GetOrderQuery, string>)behavior).Log.Should().Equal("before", "after");
+    }
+
+    [Fact]
+    public void AddPipelineBehavior_TypeOverload_WithNonBehaviorType_RegistersNothing()
+    {
+        var services = new ServiceCollection()
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
+            .AddPipelineBehavior(typeof(CreateOrderHandler));
+
+        var provider = services.BuildServiceProvider();
+
+        provider.GetService<IPipelineBehavior<CreateOrderCommand, object>>().Should().BeNull();
+    }
+
+    [Fact]
+    public async Task AddPipelineBehavior_GenericExtensionOverload_RegistersBehaviorAndAppliesItDuringDispatch()
+    {
+        var provider = new ServiceCollection()
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
+            .AddPipelineBehavior<LoggingBehavior<GetOrderQuery, string>>()
+            .BuildServiceProvider();
+
+        var mediator = provider.GetRequiredService<IMediator>();
+        var behavior = provider.GetRequiredService<IPipelineBehavior<GetOrderQuery, string>>();
+
+        await mediator.QueryAsync<GetOrderQuery, string>(new GetOrderQuery(4));
+
+        ((LoggingBehavior<GetOrderQuery, string>)behavior).Log.Should().Equal("before", "after");
+    }
+
+    [Fact]
+    public void AddOpenMediator_WithNoAssemblies_StillRegistersIMediator()
+    {
+        var provider = new ServiceCollection()
+            .AddOpenMediator()
+            .BuildServiceProvider();
+
+        provider.GetService<IMediator>().Should().NotBeNull();
+    }
+
+    [Fact]
+    public void AddOpenMediator_ReturnsServiceCollectionForChaining()
+    {
+        var services = new ServiceCollection();
+
+        var result = services.AddOpenMediator(typeof(DiRegistrationTests).Assembly);
+
+        result.Should().BeSameAs(services);
+    }
+
+    [Fact]
+    public void AddPipelineBehavior_TypeOverload_ReturnsServiceCollectionForChaining()
+    {
+        var services = new ServiceCollection()
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly);
+
+        var result = services.AddPipelineBehavior(typeof(LoggingBehavior<GetOrderQuery, string>));
+
+        result.Should().BeSameAs(services);
+    }
+
+    [Fact]
+    public async Task AddPipelineBehavior_TypeOverload_WithBehaviorImplementingNonGenericInterface_OnlyRegistersBehaviorInterface()
+    {
+        // BehaviorWithNonGenericInterface implements both IDisposable (non-generic) and
+        // IPipelineBehavior<GetOrderQuery, string>. This test ensures GetClosedPipelineBehaviorInterfaces
+        // only returns IPipelineBehavior<,> — not IDisposable — by verifying the behavior works correctly.
+        var provider = new ServiceCollection()
+            .AddOpenMediator(typeof(DiRegistrationTests).Assembly)
+            .AddPipelineBehavior(typeof(BehaviorWithNonGenericInterface))
+            .BuildServiceProvider();
+
+        var mediator = provider.GetRequiredService<IMediator>();
+        var behavior = provider.GetRequiredService<IPipelineBehavior<GetOrderQuery, string>>();
+
+        var result = await mediator.QueryAsync<GetOrderQuery, string>(new GetOrderQuery(10));
+
+        result.Should().Be("Order-10");
+        ((BehaviorWithNonGenericInterface)behavior).WasInvoked.Should().BeTrue();
+
+        // IDisposable must NOT have been registered as a behavior interface
+        provider.GetService<IDisposable>().Should().BeNull();
+    }
+
+    private sealed class BehaviorWithNonGenericInterface : IPipelineBehavior<GetOrderQuery, string>, IDisposable
+    {
+        public bool WasInvoked { get; private set; }
+
+        public Task<string> HandleAsync(
+            GetOrderQuery request,
+            RequestHandlerDelegate<string> next,
+            CancellationToken cancellationToken = default)
+        {
+            WasInvoked = true;
+            return next(cancellationToken);
+        }
+
+        // Intentionally empty — implemented only to prove IDisposable is not registered as a behavior service.
+        public void Dispose() { }
+    }
 }

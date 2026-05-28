@@ -262,4 +262,126 @@ public class MediatorDispatchTests
         await act.Should().ThrowAsync<InvalidOperationException>()
             .WithMessage("*Multiple handlers*");
     }
+
+    [Fact]
+    public async Task SendAsync_WithResult_ThrowsWhenMultipleHandlersRegistered()
+    {
+        var mediator = BuildMediator(s =>
+        {
+            s.AddScoped<ICommandHandler<EchoCommand, string>, EchoHandler>();
+            s.AddScoped<ICommandHandler<EchoCommand, string>, EchoHandler>();
+        });
+
+        var act = () => mediator.SendAsync<EchoCommand, string>(new EchoCommand("x"));
+
+        await act.Should().ThrowAsync<InvalidOperationException>()
+            .WithMessage("*Multiple handlers*");
+    }
+
+    // ── CancellationToken propagation ──────────────────────────────────────
+
+    [Fact]
+    public async Task SendAsync_FireAndForget_PropagatesCancellationTokenToHandler()
+    {
+        var receivedToken = default(CancellationToken);
+        var handler = new CaptureCancellationHandler(ct => { receivedToken = ct; return Task.CompletedTask; });
+        var mediator = BuildMediator(s =>
+            s.AddSingleton<ICommandHandler<PingCommand>>(handler));
+
+        using var cts = new CancellationTokenSource();
+        await mediator.SendAsync(new PingCommand(), cts.Token);
+
+        receivedToken.Should().Be(cts.Token);
+    }
+
+    [Fact]
+    public async Task SendAsync_WithResult_PropagatesCancellationTokenToHandler()
+    {
+        var receivedToken = default(CancellationToken);
+        var handler = new CaptureEchoCancellationHandler(ct => { receivedToken = ct; return Task.FromResult("done"); });
+        var mediator = BuildMediator(s =>
+            s.AddSingleton<ICommandHandler<EchoCommand, string>>(handler));
+
+        using var cts = new CancellationTokenSource();
+        await mediator.SendAsync<EchoCommand, string>(new EchoCommand("test"), cts.Token);
+
+        receivedToken.Should().Be(cts.Token);
+    }
+
+    [Fact]
+    public async Task QueryAsync_PropagatesCancellationTokenToHandler()
+    {
+        var receivedToken = default(CancellationToken);
+        var handler = new CaptureSumCancellationHandler(ct => { receivedToken = ct; return Task.FromResult(0); });
+        var mediator = BuildMediator(s =>
+            s.AddSingleton<IQueryHandler<SumQuery, int>>(handler));
+
+        using var cts = new CancellationTokenSource();
+        await mediator.QueryAsync<SumQuery, int>(new SumQuery(1, 2), cts.Token);
+
+        receivedToken.Should().Be(cts.Token);
+    }
+
+    [Fact]
+    public async Task PublishAsync_PropagatesCancellationTokenToHandlers()
+    {
+        var receivedTokens = new List<CancellationToken>();
+        var handler = new CaptureEventCancellationHandler(ct => { receivedTokens.Add(ct); return Task.CompletedTask; });
+        var mediator = BuildMediator(s =>
+            s.AddSingleton<IEventHandler<OrderPlacedEvent>>(handler));
+
+        using var cts = new CancellationTokenSource();
+        await mediator.PublishAsync(new OrderPlacedEvent(1), cts.Token);
+
+        receivedTokens.Should().ContainSingle().Which.Should().Be(cts.Token);
+    }
+
+    // ── PublishAsync mixed success/failure ─────────────────────────────────
+
+    [Fact]
+    public async Task PublishAsync_InvokesRemainingHandlersAfterOneFails()
+    {
+        var successHandler = new OrderPlacedHandlerA();
+        var mediator = BuildMediator(s =>
+        {
+            s.AddScoped<IEventHandler<OrderPlacedEvent>, ThrowingEventHandler>();
+            s.AddSingleton<IEventHandler<OrderPlacedEvent>>(successHandler);
+        });
+
+        var act = () => mediator.PublishAsync(new OrderPlacedEvent(7));
+
+        var ex = await act.Should().ThrowAsync<AggregateException>();
+        ex.Which.InnerExceptions.Should().HaveCount(1);
+        successHandler.Received.Should().ContainSingle().Which.Should().Be(7);
+    }
+
+    // ── Cancellation token handler fakes ────────────────────────────────────
+
+    private sealed class CaptureCancellationHandler(Func<CancellationToken, Task> callback)
+        : ICommandHandler<PingCommand>
+    {
+        public Task HandleAsync(PingCommand command, CancellationToken cancellationToken = default)
+            => callback(cancellationToken);
+    }
+
+    private sealed class CaptureEchoCancellationHandler(Func<CancellationToken, Task<string>> callback)
+        : ICommandHandler<EchoCommand, string>
+    {
+        public Task<string> HandleAsync(EchoCommand command, CancellationToken cancellationToken = default)
+            => callback(cancellationToken);
+    }
+
+    private sealed class CaptureSumCancellationHandler(Func<CancellationToken, Task<int>> callback)
+        : IQueryHandler<SumQuery, int>
+    {
+        public Task<int> HandleAsync(SumQuery query, CancellationToken cancellationToken = default)
+            => callback(cancellationToken);
+    }
+
+    private sealed class CaptureEventCancellationHandler(Func<CancellationToken, Task> callback)
+        : IEventHandler<OrderPlacedEvent>
+    {
+        public Task HandleAsync(OrderPlacedEvent evt, CancellationToken cancellationToken = default)
+            => callback(cancellationToken);
+    }
 }
