@@ -1,4 +1,4 @@
-namespace OpenMediator.Abstractions;
+namespace Zibetti.Mediator.Abstractions;
 
 /// <summary>
 /// Handles a read-only query of type <typeparamref name="TQuery"/> and returns a result of type <typeparamref name="TResult"/>.

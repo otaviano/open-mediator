@@ -1,4 +1,4 @@
-namespace OpenMediator.Abstractions;
+namespace Zibetti.Mediator.Abstractions;
 
 /// <summary>
 /// Handles an event notification of type <typeparamref name="TEvent"/>.

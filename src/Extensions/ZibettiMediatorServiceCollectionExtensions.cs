@@ -1,11 +1,11 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using OpenMediator.Abstractions;
-using OpenMediator.Core;
+using Zibetti.Mediator.Abstractions;
+using MediatorImpl = Zibetti.Mediator.Core.Mediator;
 
-namespace OpenMediator.Extensions;
+namespace Zibetti.Mediator.Extensions;
 
-public static class OpenMediatorServiceCollectionExtensions
+public static class ZibettiMediatorServiceCollectionExtensions
 {
     private static readonly Type[] HandlerInterfaces =
     [
@@ -18,11 +18,11 @@ public static class OpenMediatorServiceCollectionExtensions
     /// <summary>
     /// Registers <see cref="IMediator"/> and scans <paramref name="assemblies"/> for handler implementations.
     /// </summary>
-    public static IServiceCollection AddOpenMediator(
+    public static IServiceCollection AddZibettiMediator(
         this IServiceCollection services,
         params Assembly[] assemblies)
     {
-        services.AddScoped<IMediator, Mediator>();
+        services.AddScoped<IMediator, MediatorImpl>();
 
         foreach (var assembly in assemblies)
             RegisterHandlersFromAssembly(services, assembly);

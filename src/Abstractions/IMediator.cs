@@ -1,4 +1,4 @@
-namespace OpenMediator.Abstractions;
+namespace Zibetti.Mediator.Abstractions;
 
 /// <summary>
 /// Central mediator for dispatching commands, queries, and events.

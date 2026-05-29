@@ -35,7 +35,7 @@ jobs:
 
       - name: Pack
         run: >
-          dotnet pack src/OpenMediator.csproj
+          dotnet pack src/Zibetti.Mediator.csproj
           --configuration Release
           --no-build
           -p:PackageVersion=${{ steps.version.outputs.VERSION }}

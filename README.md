@@ -1,14 +1,14 @@
-# OpenMediator
+# Zibetti.Mediator
 
 ![Mutation Score](https://img.shields.io/badge/mutation%20score-88%25-brightgreen)
 
 A minimal, DI-first .NET 10 mediator library. No magic, no global state — just clean request/handler contracts wired through the standard `IServiceCollection`.
 
-## Why OpenMediator?
+## Why Zibetti.Mediator?
 
-Libraries like MediatR and Brighter are capable but carry significant overhead: custom registries, opaque decorator chains, and `Unit` sentinels. OpenMediator is built around one principle: **the DI container is your handler registry**. Register a handler, dispatch a request — that's it.
+Libraries like MediatR and Brighter are capable but carry significant overhead: custom registries, opaque decorator chains, and `Unit` sentinels. Zibetti.Mediator is built around one principle: **the DI container is your handler registry**. Register a handler, dispatch a request — that's it.
 
-| Feature | OpenMediator | MediatR | Brighter |
+| Feature | Zibetti.Mediator | MediatR | Brighter |
 |---|---|---|---|
 | DI-native resolution | ✓ | Partial | ✗ (SubscriberRegistry) |
 | Distinct command/query/event types | ✓ | ✗ (all `IRequest<T>`) | ✓ |
@@ -21,7 +21,7 @@ Libraries like MediatR and Brighter are capable but carry significant overhead: 
 ## Installation
 
 ```bash
-dotnet add package OpenMediator
+dotnet add package Zibetti.Mediator
 ```
 
 ---
@@ -172,14 +172,14 @@ Minimal `Program.cs` setup:
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddOpenMediator(typeof(Program).Assembly)           // scan for handlers
+    .AddZibettiMediator(typeof(Program).Assembly)           // scan for handlers
     .AddPipelineBehavior<ValidationBehavior<CreateUserCommand, Guid>>() // explicit behaviors
     .AddPipelineBehavior<LoggingBehavior<CreateUserCommand, Guid>>();   // in registration order
 
 var app = builder.Build();
 ```
 
-`AddOpenMediator(params Assembly[])`:
+`AddZibettiMediator(params Assembly[])`:
 - Registers `IMediator` as **scoped**
 - Scans all provided assemblies for `ICommandHandler<>`, `ICommandHandler<,>`, `IQueryHandler<,>`, `IEventHandler<>` implementations and registers them as **scoped**
 

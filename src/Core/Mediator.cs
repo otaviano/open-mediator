@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
-using OpenMediator.Abstractions;
+using Zibetti.Mediator.Abstractions;
 
-namespace OpenMediator.Core;
+namespace Zibetti.Mediator.Core;
 
 internal sealed class Mediator(IServiceProvider serviceProvider) : IMediator
 {
@@ -69,7 +69,7 @@ internal sealed class Mediator(IServiceProvider serviceProvider) : IMediator
         {
             0 => throw new InvalidOperationException(
                 $"No handler registered for '{typeof(TRequest).FullName}'. " +
-                "Register it via AddOpenMediator()."),
+                "Register it via AddZibettiMediator()."),
             > 1 => throw new InvalidOperationException(
                 $"Multiple handlers registered for '{typeof(TRequest).FullName}'. " +
                 "Only one handler per command or query is allowed."),

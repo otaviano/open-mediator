@@ -1,4 +1,4 @@
-namespace OpenMediator.Abstractions;
+namespace Zibetti.Mediator.Abstractions;
 
 /// <summary>
 /// Marker interface for a read-only query that returns a result of type <typeparamref name="TResult"/>.
